@@ -1,25 +1,22 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <div>
-      <p>
-        If Element is successfully added to this project, you'll see an
-        <code v-text="'<el-button>'"></code>
-        below
-      </p>
-      <el-button>el-button</el-button>
-    </div>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <emitBus1></emitBus1>
+    <emitBus2></emitBus2>
+    <onBus></onBus>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import emitBus1 from '@/components/eventBus/emitBus1.vue';
+import emitBus2 from '@/components/eventBus/emitBus2.vue';
+import onBus from '@/components/eventBus/onBus.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    emitBus1,
+    emitBus2,
+    onBus
   }
 }
 </script>
