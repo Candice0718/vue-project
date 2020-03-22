@@ -9,8 +9,8 @@
     methods: {
       sayHi() {
         // this.$parent派发, 
-        // this.$parent为VueComponent
-        // this.$root为Vue可以实现同样的通信效果
+        // this.$parent为VueComponent实例
+        // this.$root为Vue实例可以实现同样的通信效果
         console.log(this.$parent);
         console.log(this.$root);
         this.$parent.$emit('foo', 'say hi from brother1');

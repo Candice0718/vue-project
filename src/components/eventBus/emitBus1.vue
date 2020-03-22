@@ -14,6 +14,9 @@
     methods: {
       emitMessage() {
         this.$bus.$emit('init',`message from ${this.name}`);
+      },
+      callMe() {
+        console.log('callMe');
       }
     },
   }
