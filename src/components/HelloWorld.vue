@@ -4,6 +4,7 @@
     1. v-on="$listeners"解构组件事件
     2. 给组件事件传参、单个事件@click = $listeners.click
      -->
+     <!--$attrs不是响应式的-->
     <el-button @click="$listeners.click('helloWorld')">{{$attrs.msg}}</el-button>
   </div>
 </template>

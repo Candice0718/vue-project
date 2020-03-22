@@ -12,6 +12,18 @@
     {{msg}}
     <!-- $provide/$inject -->
     <inject></inject>
+    <!-- slot -->
+    <slot-template>
+      <template v-slot:default>default</template>
+      <template v-slot:content>slot content</template>
+      <!-- 自2.6.0 slot-scope已经废弃了
+        以前的用法 <template slot="title" slot-scope="row"></template>
+        2.6.0+的用法如下
+        下面的写法也可以用解构的方式等到子组件传回来的值
+        <template v-slot:title={title}> {{title}}</template>
+       -->
+      <template v-slot:title="row" >{{row.title}}</template>
+    </slot-template>
   </div>
 </template>
 
@@ -23,6 +35,7 @@ import brother1 from '@/components/parent/brother1.vue';
 import brother2 from '@/components/parent/brother2.vue';
 import HelloWorld from '@/components/HelloWorld.vue';
 import Inject from '@/components/provide/inject.vue';
+import slotTemplate from '@/components/slots/slotTemplate.vue';
 
 export default {
   name: 'app',
@@ -33,11 +46,15 @@ export default {
     brother1,
     brother2,
     HelloWorld,
-    Inject
+    Inject,
+    slotTemplate
   },
   provide() {
+    // 隔代传参：用法类似于data
+    // 传递响应式的对象就是响应式的
     return {
-      foo: 'app foo'
+      foo: 'app foo',
+      app: this
     }
   },
   data() {
