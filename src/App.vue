@@ -24,6 +24,19 @@
        -->
       <template v-slot:title="row" >{{row.title}}</template>
     </slot-template>
+    <!-- 实战from表单 -->
+    <div style="margin-bottom: 10px;">========================实战from表单=====================</div>
+    <kForm :model="model" :rules="rules" ref="kFormRef">
+      <kFormItem label="用户名" prop="username">
+        <kInput v-model="model.username" placeholder="请输入用户名"></kInput>
+      </kFormItem>
+      <kFormItem label="密码" prop="password">
+        <kInput v-model="model.password" placeholder="请输入用户名" type="password"></kInput>
+      </kFormItem>
+      <kFormItem>
+        <el-button @click="onLogin">登陆</el-button>
+      </kFormItem>
+    </kForm>
   </div>
 </template>
 
@@ -36,6 +49,10 @@ import brother2 from '@/components/parent/brother2.vue';
 import HelloWorld from '@/components/HelloWorld.vue';
 import Inject from '@/components/provide/inject.vue';
 import slotTemplate from '@/components/slots/slotTemplate.vue';
+import kForm from '@/components/form/KForm.vue';
+import kFormItem from '@/components/form/KFormItem.vue';
+import kInput from '@/components/form/KInput.vue';
+import Notice from '@/components/Notice.vue'
 
 export default {
   name: 'app',
@@ -47,7 +64,10 @@ export default {
     brother2,
     HelloWorld,
     Inject,
-    slotTemplate
+    slotTemplate,
+    kForm,
+    kFormItem,
+    kInput
   },
   provide() {
     // 隔代传参：用法类似于data
@@ -59,7 +79,16 @@ export default {
   },
   data() {
     return {
-      msg: ''
+      msg: '',
+      value: '',
+      model: {
+        username: '',
+        password: ''
+      },
+      rules: {
+        username: [{required: true, message: '请输入用户名'}],
+        password: [{required: true, message: '请输入密码'}],
+      }
     }
   },
   mounted () {
@@ -76,6 +105,19 @@ export default {
     sayHi(msg) {
       console.log(`msg:${msg}`)
       this.msg = msg
+    },
+    onLogin() {
+      this.$refs.kFormRef.validate(isValid => {
+        if(isValid) {
+          this.$create(Notice, {
+            title: '校验成功',
+            message: '校验成功，请重试！',
+            duration: 3000
+          }).show();
+        } else {
+          alert('校验失败！');
+        }
+      });
     }
   },
 }
