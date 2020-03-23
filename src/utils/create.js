@@ -1,28 +1,21 @@
 import Vue from 'vue';
-/**
- * 动态生成组件实例，并且挂载至body上
- * @param {*} Component 是组件配置对象
- * @param {*} props 
- */
-export default function create(Component, props) {
-  // 借用Vue构造函数来动态生成组件实例
 
-  // 创建一个虚拟dom
-  const vm = new Vue({
-    render(h) {
-      return h(Component, {props});
+export default function create(Component, props){
+  // 1. 使用构造器创建一个子类
+  // 2. 通过子类实例创建一个虚拟dom
+   const vm = new(Vue.extend(Component))({
+    propsData: {
+      ...props
     }
-  });
-
-  // 生成真实dom
+   });
+    // 生成真实dom
   vm.$mount();
 
   // 通过$el属性获取真实的dom
   document.body.appendChild(vm.$el);
 
   // 组件实例返回
-  const comp = vm.$children[0];
-
+  const comp = vm.$root;
   // 组件销毁
   comp.remove = () => {
     document.body.removeChild(vm.$el);
@@ -30,5 +23,4 @@ export default function create(Component, props) {
   }
 
   return comp;
-  
 }

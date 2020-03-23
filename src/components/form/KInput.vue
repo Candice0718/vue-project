@@ -24,6 +24,9 @@
 
         // 实时校验，通知父组件监听 
         // 用$parent强关联，组件的耦合度太高，todo: 需要优化
+        // this.$parent.$emit('validate');
+
+        // 优化方案：mixins一个工具库，迭代的查找父组件并与参数componentName做匹配
         this.dispatch('KFormItem', 'validate');
       }
     },
