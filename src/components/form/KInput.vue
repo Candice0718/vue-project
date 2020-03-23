@@ -3,13 +3,15 @@
     <!-- 维护数据、实现数据的双向绑定 v-model = @input value-->
     <!-- v-bind=$attrs 解构父组件的属性-->
     <!-- #todo v-model在其他组件上实现 -->
-    <input :value="value" @input="onInput" v-bind="$attrs">
+    <input :value="value" @input="onInput" v-bind="$attrs"/>
   </div>
 </template>
 
 <script>
+  import emitter from '@/mixins/emitter.js';
   export default {
     inheritAttrs: false,
+    mixins: [emitter],
     props: {
       value: {
         type: String,
@@ -22,7 +24,7 @@
 
         // 实时校验，通知父组件监听 
         // 用$parent强关联，组件的耦合度太高，todo: 需要优化
-        this.$parent.$emit('validate');
+        this.dispatch('KFormItem', 'validate');
       }
     },
   }

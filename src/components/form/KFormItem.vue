@@ -14,6 +14,7 @@
 <script>
   import Schema from 'async-validator';
   export default {
+    componentName: 'KFormItem',
     inject: ['form'],
     props: {
       label: {
@@ -54,8 +55,6 @@
               resolve();
             }
           });
-        }).catch(e => {
-          console.log(e)
         })
       }
     },
