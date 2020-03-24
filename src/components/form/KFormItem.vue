@@ -65,6 +65,9 @@
         })
       }
     },
+    beforeDestroy() {
+      this.dispatch('KForm', 'kFormItem.removeField', [this]);
+    }
   }
 </script>
 

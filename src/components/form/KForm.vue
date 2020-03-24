@@ -27,13 +27,16 @@
     },
     created () {
       this.fields = [];
+      // 将创建的formItem实例存放起来。
       this.$on('kFormItem.addField', item => {
         this.fields.push(item);
       });
-      // todo 删除this.fields中的this
-      // this.$on('kFormItem.removeField', item => {
-
-      // });
+      // formItem实例销毁的时候将this.fields响应的数据删除
+      this.$on('kFormItem.removeField', (field) => {
+        if (field.prop) {
+          this.fields.splice(this.fields.indexOf(field), 1);
+        }
+      });
     },
     methods: {
       validate(cb) {
