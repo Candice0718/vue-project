@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script>
+    let obj = {};
+    // 执行过defineReactive就是响应式数据
+    function defineReactive(obj, key, val) {
+      Object.defineProperty(obj, key, {
+        get: () => {
+          console.log(`get: ${key}: ${val}`);
+          return val;
+        },
+        set: (newVal) => {
+          if (newVal != val) {
+            console.log(`set: ${key}: ${newVal}`)
+            // val不仅仅是一个行参，还是一个局部变量，在这里可以形成闭包
+            val = newVal;
+            updater();
+          }
+        }
+      })
+    }
+
+    function updater() {
+      app.innerText = obj.foo
+    }
+
+    defineReactive(obj, 'foo', '');
+    setInterval(function() {
+      obj.foo = new Date().toLocaleTimeString();
+    },1000);
+  </script>
+</html>

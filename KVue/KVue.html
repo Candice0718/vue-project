@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="./KVue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <p @click="onClick">{{counter}}</p>
+    <p v-text="counter"></p>
+    <p v-html="html"></p>
+    <input v-model="html">
+  </div>
+  <script>
+    const app = new KVue({
+      el: '#app',
+      data: {
+        counter: 0,
+        html: '<p style="color: red;">插入模版</p>'
+      },
+      methods: {
+        onClick() {
+          this.counter++
+        }
+      },
+    });
+    // setInterval(function() {
+    //   app.counter++
+    // }, 1000)
+  </script>
+</body>
+</html>
