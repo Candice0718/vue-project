@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="background-color: red" @click="$store.dispatch('fetchCounter')">{{counter}}ceshi1</div>
+    <el-button @click="$store.dispatch('fetchCounter')">{{counter}}ceshi1</el-button>
   </div>
 </template>
 
